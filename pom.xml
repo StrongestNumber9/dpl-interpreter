@@ -1,24 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.teragrep</groupId>
-	<artifactId>dpl-interpreter</artifactId>
-	<version>${project.version}</version>
-	<packaging>pom</packaging>
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<project.version>0.0.1-SNAPSHOT</project.version>
-	</properties>
-	<modules>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.teragrep</groupId>
+  <artifactId>dpl-interpreter</artifactId>
+  <version>${project.version}</version>
+  <packaging>pom</packaging>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.version>0.0.1-SNAPSHOT</project.version>
+  </properties>
+  <modules>
     <module>jue_01</module>
-	  <module>rlo_06</module>
-	  <module>rad_01</module>
-	  <module>pth_06</module>
-	  <module>pth_03</module>
+    <module>rlo_06</module>
+    <module>rad_01</module>
+    <module>pth_06</module>
+    <module>pth_03</module>
     <module>dpf_02</module>
-	  <module>pth_10</module>
+    <module>pth_10</module>
     <module>pth_07</module>
-	</modules>
+  </modules>
 </project>
