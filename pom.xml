@@ -11,6 +11,12 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.version>0.0.1-SNAPSHOT</project.version>
   </properties>
+  <!-- FIXME -->
+  <scm>
+    <connection>scm:git:https://github.com/StrongestNumber9/dpl-interpreter.git</connection>
+    <developerConnection>scm:git:git@github.com:StrongestNumber9/dpl-interpreter.git</developerConnection>
+    <url>https://github.com/StrongestNumber9/dpl-interpreter/tree/dev</url>
+  </scm>
   <modules>
     <module>jue_01</module>
     <module>rlo_06</module>
