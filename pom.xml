@@ -51,30 +51,67 @@
           </rules>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-        <version>2.0.1</version>
-        <inherited>true</inherited>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>update-subprojects</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-  <modules>
-    <module>jue_01</module>
-    <module>rlo_06</module>
-    <module>rad_01</module>
-    <module>pth_06</module>
-    <module>pth_03</module>
-    <module>dpf_02</module>
-    <module>pth_10</module>
-    <module>pth_07</module>
-  </modules>
+  <profiles>
+    <profile>
+      <id>update</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <directory>${project.basedir}/target</directory>
+        <finalName>dpl-interpreter</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.1</version>
+            <executions>
+              <execution>
+                <id>update-modules</id>
+                <phase>process-sources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>mvn</executable>
+                  <commandlineArgs>-Pbuild scm:update-subprojects</commandlineArgs>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+              <execution>
+                <id>run-maven</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>mvn</executable>
+                  <commandlineArgs>${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update'</commandlineArgs>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>build</id>
+      <properties>
+        <build>true</build>
+      </properties>
+      <modules>
+        <module>jue_01</module>
+        <module>rlo_06</module>
+        <module>rad_01</module>
+        <module>pth_06</module>
+        <module>pth_03</module>
+        <module>dpf_02</module>
+        <module>pth_10</module>
+        <module>pth_07</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
