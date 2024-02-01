@@ -81,6 +81,43 @@
                 </configuration>
               </execution>
               <execution>
+                <id>set-versions</id>
+                <phase>process-sources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>git</executable>
+                  <commandlineArgs>submodule foreach 'mvn versions:set -DnewVersion=$(git describe --abbrev=8 --tags)'</commandlineArgs>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+              <execution>
+                <id>gather-versions</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>bash</executable>
+                  <commandlineArgs>-c "git submodule foreach --quiet 'echo -n teragrep.; mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout; echo -n '.version='; git describe --abbrev=8 --tags';"</commandlineArgs>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                  <outputFile>build.properties</outputFile>
+                </configuration>
+              </execution>
+              <execution>
+                <id>update-properties</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>bash</executable>
+                  <commandlineArgs>-c "git submodule foreach --quiet 'mvn versions:set-property -DpropertiesVersionsFile=../build.properties'"</commandlineArgs>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+              <execution>
                 <id>run-maven</id>
                 <phase>package</phase>
                 <goals>
@@ -99,9 +136,6 @@
     </profile>
     <profile>
       <id>build</id>
-      <properties>
-        <build>true</build>
-      </properties>
       <modules>
         <module>jue_01</module>
         <module>rlo_06</module>
