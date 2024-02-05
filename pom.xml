@@ -10,6 +10,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.version>0.0.1-SNAPSHOT</project.version>
+    <update.skip>false</update.skip>
   </properties>
   <!-- FIXME -->
   <scm>
@@ -75,6 +76,7 @@
                   <goal>exec</goal>
                 </goals>
                 <configuration>
+                  <skip>${update.skip}</skip>
                   <executable>git</executable>
                   <commandlineArgs>submodule update --remote</commandlineArgs>
                   <workingDirectory>${project.basedir}</workingDirectory>
