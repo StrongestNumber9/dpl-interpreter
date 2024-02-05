@@ -92,6 +92,8 @@
                     <argument>-c</argument>
                     <argument>
                       export VERSION_STRING=$(git submodule | tr -d "()" | awk '{printf "-Dteragrep.%s.version=%s ", $2, $3}');
+                      export DIRTY="$(if git submodule foreach --quiet git describe --exact-match --tags > /dev/null 2>&amp;1; then echo "true"; else echo "false"; fi)";
+                      echo "Current version is release ready: ${DIRTY}";
                       echo Executing: mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
                       mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
                     </argument>
