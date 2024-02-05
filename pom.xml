@@ -90,6 +90,7 @@
                   <executable>bash</executable>
                   <commandlineArgs>-c "
                   export VERSION_STRING=$(git submodule foreach --quiet 'echo -n -Dteragrep.; mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout; echo -n '.version='; git describe --abbrev=8 --tags' | tr '\n' ' ');
+                  echo Executing: mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
                   mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
                   "</commandlineArgs>
                   <workingDirectory>${project.basedir}</workingDirectory>
