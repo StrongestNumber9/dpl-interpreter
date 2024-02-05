@@ -22,6 +22,39 @@
     <finalName>dpl-interpreter</finalName>
     <plugins>
       <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.9.10</version>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>validate-the-git-infos</id>
+            <goals>
+              <goal>validateRevision</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <injectAllReactorProjects>true</injectAllReactorProjects>
+          <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+          <prefix>git</prefix>
+          <verbose>true</verbose>
+          <gitDescribe>
+            <tags>true</tags>
+            <skip>false</skip>
+            <always>true</always>
+            <dirty>-dirty</dirty>
+          </gitDescribe>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.4.1</version>
         <executions>
@@ -75,8 +108,8 @@
                   <goal>exec</goal>
                 </goals>
                 <configuration>
-                  <executable>mvn</executable>
-                  <commandlineArgs>-Pbuild scm:update-subprojects</commandlineArgs>
+                  <executable>git</executable>
+                  <commandlineArgs>submodule update - -remote</commandlineArgs>
                   <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
               </execution>
@@ -88,11 +121,14 @@
                 </goals>
                 <configuration>
                   <executable>bash</executable>
-                  <commandlineArgs>-c "
-                  export VERSION_STRING=$(git submodule foreach --quiet 'echo -n -Dteragrep.; mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout; echo -n '.version='; git describe --abbrev=8 --tags' | tr '\n' ' ');
-                  echo Executing: mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
-                  mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
-                  "</commandlineArgs>
+                  <arguments>
+                    <argument>-c</argument>
+                    <argument>
+                      export VERSION_STRING=$(git submodule | tr -d "()" | awk '{printf "-Dteragrep.%s.version=%s ", $2, $3}');
+                      echo Executing: mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
+                      mvn ${VERSION_STRING} ${env.MAVEN_CMD_LINE_ARGS} -Pbuild -P'!update';
+                    </argument>
+                  </arguments>
                   <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
               </execution>

@@ -1,32 +1,32 @@
 [submodule "pth_10"]
 	path = pth_10
-	url = https://github.com/teragrep/pth_10.git
-	branch = main
+	url = https://github.com/StrongestNumber9/pth_10.git
+	branch = build_fixes
 [submodule "pth_07"]
 	path = pth_07
-	url = https://github.com/teragrep/pth_07.git
-	branch = main
+	url = https://github.com/StrongestNumber9/pth_07.git
+	branch = build_fixes
 [submodule "pth_06"]
 	path = pth_06
-	url = https://github.com/teragrep/pth_06.git
-	branch = main
+	url = https://github.com/StrongestNumber9/pth_06.git
+	branch = build_fixes
 [submodule "pth_03"]
 	path = pth_03
-	url = https://github.com/teragrep/pth_03.git
-	branch = main
+	url = https://github.com/StrongestNumber9/pth_03.git
+	branch = build_fixes
 [submodule "jue_01"]
 	path = jue_01
-	url = https://github.com/teragrep/jue_01.git
-	branch = main
+	url = https://github.com/StrongestNumber9/jue_01.git
+	branch = build_fixes
 [submodule "dpf_02"]
 	path = dpf_02
-	url = https://github.com/teragrep/dpf_02.git
-	branch = main
+	url = https://github.com/StrongestNumber9/dpf_02.git
+	branch = build_fixes
 [submodule "rad_01"]
 	path = rad_01
-	url = https://github.com/teragrep/rad_01.git
-	branch = master
+	url = https://github.com/StrongestNumber9/rad_01.git
+	branch = build_fixes
 [submodule "rlo_06"]
 	path = rlo_06
-	url = https://github.com/teragrep/rlo_06.git
-	branch = master
+	url = https://github.com/StrongestNumber9/rlo_06.git
+	branch = build_fixes
